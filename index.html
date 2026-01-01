@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Robin Dodson | World Champion Billiards Instruction</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Lato:wght@300;400;700;900&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'billiard-green': '#0e3c26',
+                        'billiard-dark': '#051b11',
+                        'felt-green': '#1a5c3a',
+                        'gold-accent': '#c5a059',
+                        'gold-light': '#e5c585',
+                        'charcoal': '#121212',
+                        'chalk-blue': '#4a90e2',
+                    },
+                    fontFamily: {
+                        'serif': ['"Playfair Display"', 'serif'],
+                        'cinzel': ['"Cinzel"', 'serif'],
+                        'sans': ['"Lato"', 'sans-serif'],
+                    },
+                    backgroundImage: {
+                        'hero-pattern': "url('https://images.unsplash.com/photo-1571216887858-a53d6d87e009?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80')",
+                        'felt-texture': "url('https://www.transparenttextures.com/patterns/felt.png')", 
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        /* Custom Parallax Classes */
+        .parallax-wrapper {
+            height: 100vh;
+            overflow-x: hidden;
+            overflow-y: auto;
+            perspective: 2px;
+        }
+        
+        .parallax-section {
+            transform-style: preserve-3d;
+            position: relative;
+        }
+
+        .parallax-bg {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            left: 0;
+            transform: translateZ(-1px) scale(1.5);
+            background-size: cover;
+            background-position: center;
+            z-index: -1;
+        }
+
+        .glass-panel {
+            background: rgba(18, 18, 18, 0.85);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(197, 160, 89, 0.2);
+        }
+
+        .gold-gradient-text {
+            background: linear-gradient(to right, #c5a059, #e5c585, #c5a059);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-size: 200% auto;
+            animation: shine 5s linear infinite;
+        }
+
+        @keyframes shine {
+            to {
+                background-position: 200% center;
+            }
+        }
+
+        .lesson-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.5), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+            border-color: #c5a059;
+        }
+
+        /* Felt Texture Overlay */
+        .felt-bg {
+            background-color: #0e3c26;
+            background-image: url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23144d32' fill-opacity='0.4' fill-rule='evenodd'%3E%3Cpath d='M0 38.59l2.83-2.83 1.41 1.41L1.41 40H0v-1.41zM0 1.4l2.83 2.83 1.41-1.41L1.41 0H0v1.41zM38.59 40l-2.83-2.83 1.41-1.41L40 38.59V40h-1.41zM40 1.41l-2.83 2.83-1.41-1.41L38.59 0H40v1.41zM20 18.6l2.83-2.83 1.41 1.41L21.41 20l2.83 2.83-1.41 1.41L20 21.41l-2.83 2.83-1.41-1.41L18.59 20l-2.83-2.83 1.41-1.41L20 18.59z'/%3E%3C/g%3E%3C/svg%3E");
+            position: relative;
+        }
+        
+        /* Rail Diamonds (Sights) Pattern */
+        .rail-border-top {
+            position: relative;
+            border-top: 20px solid #2a1a0a; /* Dark wood color */
+            border-bottom: 4px solid #1a0a00;
+            box-shadow: inset 0 2px 5px rgba(0,0,0,0.8);
+        }
+        .rail-border-top::after {
+            content: '';
+            position: absolute;
+            top: -14px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 8px;
+            height: 8px;
+            background: radial-gradient(circle, #e6e6e6 0%, #b3b3b3 100%);
+            border-radius: 50%; /* Diamond or circle sights */
+            box-shadow: 0 1px 2px rgba(0,0,0,0.5);
+            /* Create multiple diamonds using box-shadow */
+            box-shadow: 
+                0 0 1px rgba(0,0,0,0.5),
+                -100px 0 0 #e6e6e6,
+                100px 0 0 #e6e6e6,
+                -200px 0 0 #e6e6e6,
+                200px 0 0 #e6e6e6,
+                -300px 0 0 #e6e6e6,
+                300px 0 0 #e6e6e6;
+        }
+
+        /* Cue Stick Divider */
+        .cue-stick {
+            height: 8px;
+            background: linear-gradient(90deg, #e5c585 0%, #8b5a2b 70%, #fff 98%, #4a90e2 100%);
+            border-radius: 4px;
+            width: 80%;
+            margin: 40px auto;
+            position: relative;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+        }
+        /* Ferrule */
+        .cue-stick::after {
+            content: '';
+            position: absolute;
+            right: 2%; /* Before tip */
+            top: 0;
+            height: 100%;
+            width: 15px;
+            background: #fff;
+        }
+        /* Tip */
+        .cue-stick::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 0;
+            height: 100%;
+            width: 5px;
+            background: #4a90e2; /* Chalk color */
+            border-top-right-radius: 4px;
+            border-bottom-right-radius: 4px;
+            z-index: 2;
+        }
+
+        /* Chalk Decoration */
+        .chalk-cube {
+            width: 40px;
+            height: 40px;
+            background-color: #4a90e2;
+            position: absolute;
+            border: 1px solid #357abd;
+            box-shadow: 2px 2px 5px rgba(0,0,0,0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .chalk-circle {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            border: 2px dashed rgba(255,255,255,0.3);
+            background: rgba(0,0,0,0.1);
+        }
+        
+        /* Timeline/Awards Styles */
+        .timeline-item {
+            position: relative;
+            padding-left: 3rem;
+            border-left: 2px solid #c5a059;
+            padding-bottom: 2rem;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -0.6rem;
+            top: 0;
+            width: 1.2rem;
+            height: 1.2rem;
+            background: #121212;
+            border: 2px solid #c5a059;
+            border-radius: 50%;
+        }
+    </style>
+</head>
+<body class="bg-charcoal text-gray-200 font-sans overflow-x-hidden">
+
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 bg-charcoal/90 backdrop-blur-md border-b border-gold-accent/30 transition-all duration-300" id="navbar">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex items-center justify-between h-20">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <i class="fas fa-circle text-gold-accent text-xs"></i>
+                    <a href="#" class="font-cinzel text-2xl text-gold-accent tracking-widest font-bold">
+                        ROBIN<span class="text-white">DODSON</span>
+                    </a>
+                </div>
+                <div class="hidden md:block">
+                    <div class="ml-10 flex items-baseline space-x-8">
+                        <a href="#about" class="hover:text-gold-accent transition-colors px-3 py-2 text-sm uppercase tracking-wider font-semibold">About</a>
+                        <a href="#achievements" class="hover:text-gold-accent transition-colors px-3 py-2 text-sm uppercase tracking-wider font-semibold">Legacy</a>
+                        <a href="#lessons" class="hover:text-gold-accent transition-colors px-3 py-2 text-sm uppercase tracking-wider font-semibold">Lessons</a>
+                        <a href="#booking" class="bg-gold-accent text-charcoal hover:bg-gold-light px-6 py-2 rounded-sm text-sm uppercase tracking-wider font-bold transition-all shadow-lg shadow-gold-accent/20">Book Now</a>
+                    </div>
+                </div>
+                <div class="-mr-2 flex md:hidden">
+                    <button type="button" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')" class="inline-flex items-center justify-center p-2 rounded-md text-gray-400 hover:text-white hover:bg-gray-700 focus:outline-none">
+                        <i class="fas fa-bars text-xl"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- Mobile Menu -->
+        <div class="hidden md:hidden bg-charcoal border-b border-gold-accent/20" id="mobile-menu">
+            <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
+                <a href="#about" class="text-gray-300 hover:text-gold-accent block px-3 py-2 text-base font-medium">About</a>
+                <a href="#achievements" class="text-gray-300 hover:text-gold-accent block px-3 py-2 text-base font-medium">Legacy</a>
+                <a href="#lessons" class="text-gray-300 hover:text-gold-accent block px-3 py-2 text-base font-medium">Lessons</a>
+                <a href="#booking" class="text-gold-accent font-bold block px-3 py-2 text-base">Book a Lesson</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Parallax Wrapper -->
+    <div class="parallax-wrapper">
+        
+        <!-- Hero Section -->
+        <header class="parallax-section min-h-screen flex items-center justify-center relative">
+            <!-- PLACEHOLDER FOR HERO IMAGE: Replace URL below with a high-quality action shot of Robin -->
+            <div class="parallax-bg" style="background-image: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.8)), url(https://i.imgur.com/ZTngw3H.jpeg);"></div>
+            
+            <div class="relative z-10 text-center px-4 max-w-4xl mx-auto mt-16">
+                <div class="inline-block mb-4 border-b-2 border-gold-accent pb-2">
+                    <span class="text-gold-accent uppercase tracking-[0.3em] text-sm font-bold flex items-center justify-center gap-2">
+                        <i class="fas fa-star text-xs"></i> BCA & WPBA Hall of Fame <i class="fas fa-star text-xs"></i>
+                    </span>
+                </div>
+                <h1 class="font-serif text-5xl md:text-7xl lg:text-8xl text-white mb-6 leading-tight drop-shadow-lg">
+                    Master the Table with <br>
+                    <span class="gold-gradient-text italic">The Bankroll</span>
+                </h1>
+                <p class="text-gray-300 text-lg md:text-xl mb-10 font-light tracking-wide max-w-2xl mx-auto drop-shadow-md">
+                    World-class billiards instruction from 2x World Champion Robin Dodson. Elevate your game from fundamentals to championship mindset.
+                </p>
+                <div class="flex flex-col sm:flex-row justify-center gap-4">
+                    <a href="#booking" class="bg-gold-accent text-charcoal px-8 py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white transition-all duration-300 shadow-[0_0_20px_rgba(197,160,89,0.3)] border-2 border-gold-accent">
+                        Start Training
+                    </a>
+                    <a href="#achievements" class="border-2 border-white text-white px-8 py-4 rounded-sm font-bold uppercase tracking-widest hover:bg-white hover:text-charcoal transition-all duration-300">
+                        View Career
+                    </a>
+                </div>
+            </div>
+            
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce">
+                <a href="#about" class="text-white opacity-50 hover:opacity-100 transition-opacity">
+                    <i class="fas fa-chevron-down text-3xl"></i>
+                </a>
+            </div>
+        </header>
+
+        <!-- About / Hall of Fame Section -->
+        <section id="about" class="relative py-24 bg-charcoal overflow-hidden">
+            <!-- Decorative Elements -->
+            <div class="absolute top-0 left-0 w-64 h-64 bg-billiard-green rounded-full filter blur-[100px] opacity-20"></div>
+            <div class="absolute bottom-0 right-0 w-96 h-96 bg-gold-accent rounded-full filter blur-[120px] opacity-10"></div>
+            
+            <!-- Chalk Decoration -->
+            <div class="hidden lg:block absolute top-10 right-10 transform rotate-12 opacity-80">
+                <div class="chalk-cube"><div class="chalk-circle"></div></div>
+            </div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+                    
+                    <!-- Image Grid / Portrait Slot -->
+                    <div class="relative group">
+                        <!-- Wood Border Frame -->
+                        <div class="absolute -top-4 -left-4 w-full h-full border-4 border-[#3e2723] rounded-sm z-0 shadow-lg"></div>
+                        
+                        <!-- PLACEHOLDER FOR PORTRAIT: Replace src with Robin's Headshot -->
+                        <!-- Using a generic placeholder for now -->
+                        <div class="relative z-10 bg-black aspect-[3/4] overflow-hidden rounded-sm">
+                            <img src="https://placehold.co/600x800/1a1a1a/c5a059?text=Robin+Dodson+Portrait+(Insert+Image)" alt="Robin Dodson Portrait" class="object-cover w-full h-full opacity-80 group-hover:opacity-100 transition-opacity duration-500">
+                            <div class="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
+                        </div>
+
+                        <div class="absolute -bottom-6 -right-6 bg-billiard-green p-6 rounded-sm shadow-xl z-20 border-2 border-gold-accent hidden md:block">
+                            <p class="font-cinzel text-3xl font-bold text-white text-center">HOF</p>
+                            <p class="text-gold-accent text-xs uppercase tracking-widest text-center">Dual Inductee</p>
+                        </div>
+                    </div>
+
+                    <!-- Content -->
+                    <div>
+                        <h2 class="font-cinzel text-4xl md:text-5xl text-white mb-6">A Legacy of <span class="text-gold-accent">Excellence</span></h2>
+                        
+                        <!-- Cue Stick Divider -->
+                        <div class="cue-stick ml-0 w-1/2 mb-8"></div>
+                        
+                        <p class="text-gray-400 mb-6 leading-relaxed text-lg">
+                            Known worldwide as <strong>"The Bankroll"</strong> for her fearless play in high-stakes matches, Robin Dodson is a living legend in the sport of billiards. A dominant force on the 9-ball circuit throughout the 1990s, she solidified her place in history with back-to-back World Championships.
+                        </p>
+                        <p class="text-gray-400 mb-8 leading-relaxed">
+                            Beyond her titles, Robin is a gifted educator. Renowned for her instructional work, including the seminal <em>"Mastering the Jump Shot,"</em> she brings a physics-based approach to teaching, combined with deep psychological insight into the competitive mindset. Whether you are holding a cue for the first time or preparing for a national tournament, Robin's mentorship is transformative.
+                        </p>
+
+                        <div class="flex gap-4">
+                            <div class="px-4 py-2 border border-gold-accent/50 text-gold-accent text-sm uppercase tracking-widest">
+                                2x World Champion
+                            </div>
+                            <div class="px-4 py-2 border border-gold-accent/50 text-gold-accent text-sm uppercase tracking-widest">
+                                US Open Champion
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements / Wall of Fame -->
+        <section id="achievements" class="py-24 bg-billiard-dark relative border-t border-gray-800">
+             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-4xl text-white mb-4"><i class="fas fa-trophy text-gold-accent mr-3"></i> Wall of Fame</h2>
+                    <p class="text-gray-400 max-w-2xl mx-auto">A career defined by dominance, resilience, and precision.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+                    <!-- Timeline of Major Titles -->
+                    <div>
+                        <h3 class="font-serif text-2xl text-white mb-8 border-b border-gold-accent/30 pb-2 inline-block">Major Titles</h3>
+                        <div class="space-y-0">
+                            <!-- Item -->
+                            <div class="timeline-item">
+                                <span class="text-gold-accent font-bold text-lg block">1990</span>
+                                <h4 class="text-white text-xl font-cinzel">WPA World 9-Ball Champion</h4>
+                                <p class="text-gray-500 text-sm mt-1">Defeated Loree Jon Jones to claim her first World Title.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="timeline-item">
+                                <span class="text-gold-accent font-bold text-lg block">1991</span>
+                                <h4 class="text-white text-xl font-cinzel">WPA World 9-Ball Champion</h4>
+                                <p class="text-gray-500 text-sm mt-1">Successfully defended her world title, cementing her dominance.</p>
+                            </div>
+                             <!-- Item -->
+                             <div class="timeline-item">
+                                <span class="text-gold-accent font-bold text-lg block">1991</span>
+                                <h4 class="text-white text-xl font-cinzel">WPBA National Champion</h4>
+                                <p class="text-gray-500 text-sm mt-1">A banner year, holding both World and National titles simultaneously.</p>
+                            </div>
+                            <!-- Item -->
+                            <div class="timeline-item">
+                                <span class="text-gold-accent font-bold text-lg block">1992</span>
+                                <h4 class="text-white text-xl font-cinzel">US Open 9-Ball Champion</h4>
+                                <p class="text-gray-500 text-sm mt-1">Victory at one of the most prestigious events in the sport.</p>
+                            </div>
+                             <!-- Item -->
+                             <div class="timeline-item">
+                                <span class="text-gold-accent font-bold text-lg block">1995 & 1998</span>
+                                <h4 class="text-white text-xl font-cinzel">WPBA National Champion</h4>
+                                <p class="text-gray-500 text-sm mt-1">Continued excellence throughout the decade.</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Hall of Fame & Other Accolades -->
+                    <div>
+                        <h3 class="font-serif text-2xl text-white mb-8 border-b border-gold-accent/30 pb-2 inline-block">Hall of Fame Inductions</h3>
+                        
+                        <div class="bg-charcoal p-8 border border-gold-accent/20 mb-6 relative overflow-hidden">
+                            <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-university text-8xl text-white"></i></div>
+                            <div class="relative z-10">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full bg-gold-accent flex items-center justify-center text-charcoal font-bold mr-4">05</div>
+                                    <div>
+                                        <h4 class="text-white text-xl font-cinzel">BCA Hall of Fame</h4>
+                                        <p class="text-gold-accent text-sm uppercase">Class of 2005</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-400 text-sm">Inducted into the Billiard Congress of America Hall of Fame, the highest honor in the sport, recognizing the Greatest Players.</p>
+                            </div>
+                        </div>
+
+                        <div class="bg-charcoal p-8 border border-gold-accent/20 relative overflow-hidden">
+                             <div class="absolute top-0 right-0 p-4 opacity-10"><i class="fas fa-star text-8xl text-white"></i></div>
+                             <div class="relative z-10">
+                                <div class="flex items-center mb-4">
+                                    <div class="w-12 h-12 rounded-full bg-gold-accent flex items-center justify-center text-charcoal font-bold mr-4">09</div>
+                                    <div>
+                                        <h4 class="text-white text-xl font-cinzel">WPBA Hall of Fame</h4>
+                                        <p class="text-gold-accent text-sm uppercase">Class of 2009</p>
+                                    </div>
+                                </div>
+                                <p class="text-gray-400 text-sm">Honored by the Women's Professional Billiard Association for her massive contribution to women's billiards.</p>
+                            </div>
+                        </div>
+
+                        <div class="mt-8">
+                            <h4 class="text-white font-serif text-lg mb-4">Other Achievements</h4>
+                            <ul class="grid grid-cols-1 gap-2">
+                                <li class="flex items-center text-gray-400 text-sm"><i class="fas fa-check text-gold-accent mr-3"></i> Author: "Mastering the Jump Shot"</li>
+                                <li class="flex items-center text-gray-400 text-sm"><i class="fas fa-check text-gold-accent mr-3"></i> Multiple California State Championships</li>
+                                <li class="flex items-center text-gray-400 text-sm"><i class="fas fa-check text-gold-accent mr-3"></i> Featured on ESPN Billiards Broadcasts</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+             </div>
+        </section>
+
+        <!-- Stats/Divider Parallax -->
+        <section class="parallax-section h-96 flex items-center justify-center relative border-y-8 border-billiard-green">
+            <!-- PLACEHOLDER FOR ACTION SHOT: Replace URL below -->
+            <div class="parallax-bg" style="background-image: url('https://images.unsplash.com/photo-1534447677768-be436bb09401?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80'); filter: brightness(0.4);"></div>
+            <div class="relative z-10 text-center">
+                <i class="fas fa-quote-left text-gold-accent text-4xl mb-6"></i>
+                <h3 class="font-serif text-3xl md:text-5xl text-white italic max-w-4xl mx-auto px-4 leading-tight shadow-black drop-shadow-md">
+                    "I never really had any formal instruction... I learned from watching the best. Now, I give you the shortcuts I had to find the hard way."
+                </h3>
+                <p class="text-gray-400 mt-6 font-cinzel tracking-widest uppercase">— Robin Dodson</p>
+            </div>
+        </section>
+
+        <!-- Services / Lessons Section -->
+        <section id="lessons" class="py-24 felt-bg relative border-t-8 border-[#3e2723]">
+            <!-- Top Rail Visualization -->
+            <div class="absolute top-0 left-0 w-full rail-border-top z-20 hidden md:block"></div>
+
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-8">
+                <div class="text-center mb-16">
+                    <h2 class="font-cinzel text-4xl text-white mb-4">Training Programs</h2>
+                    <p class="text-gray-300 max-w-2xl mx-auto">Customized coaching tailored to your skill level. All lessons include video analysis and take-home drills.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
+                    
+                    <!-- Beginner Card -->
+                    <div class="lesson-card bg-charcoal border-2 border-gray-800 p-8 rounded-sm transition-all duration-300 relative overflow-visible group mt-6 md:mt-0">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-gray-500 group-hover:bg-[#E6B422] transition-colors"></div>
+                        <h3 class="font-serif text-2xl text-white mb-2 mt-4">The Foundation</h3>
+                        <p class="text-[#E6B422] text-sm uppercase tracking-widest mb-6 font-bold">Beginner Level</p>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Stop developing bad habits. Learn the proper stance, bridge, and stroke mechanics that champions use.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-hand-paper text-gold-accent mr-3 w-4"></i> Perfecting the Bridge Hand</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-shoe-prints text-gold-accent mr-3 w-4"></i> Stance & Alignment</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-dot-circle text-gold-accent mr-3 w-4"></i> The Center Ball Strike</li>
+                        </ul>
+                        <a href="#booking" class="block text-center w-full py-3 border border-gray-600 text-gray-300 hover:border-gold-accent hover:text-gold-accent transition-colors uppercase text-xs tracking-widest font-bold">Book Introduction</a>
+                    </div>
+
+                    <!-- Intermediate Card -->
+                    <div class="lesson-card bg-billiard-dark border-2 border-gold-accent/30 p-8 rounded-sm transition-all duration-300 relative overflow-visible transform md:-translate-y-4 shadow-2xl mt-6 md:mt-0">
+                        <div class="absolute top-0 left-0 w-full h-1 bg-gold-accent"></div>
+                        <div class="absolute top-4 left-4 bg-gold-accent text-charcoal text-xs font-bold px-2 py-1 uppercase rounded-sm">Best Value</div>
+                        <h3 class="font-serif text-2xl text-white mb-2 mt-4">Strategy & Position</h3>
+                        <p class="text-white text-sm uppercase tracking-widest mb-6 font-bold">Intermediate Level</p>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Move beyond just making balls. Learn cue ball control, pattern play, and how to think three shots ahead.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-sync text-gold-accent mr-3 w-4"></i> Spin & English Control</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-shield-alt text-gold-accent mr-3 w-4"></i> Defensive Safety Play</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-chess-board text-gold-accent mr-3 w-4"></i> Pattern Recognition</li>
+                        </ul>
+                        <a href="#booking" class="block text-center w-full py-3 bg-gold-accent text-charcoal hover:bg-white transition-colors uppercase text-xs tracking-widest font-bold">Book Strategy Session</a>
+                    </div>
+
+                    <!-- Advanced Card -->
+                    <div class="lesson-card bg-charcoal border-2 border-gray-800 p-8 rounded-sm transition-all duration-300 relative overflow-visible group mt-6 md:mt-0">
+                        <div class="absolute top-0 left-0 w-1 h-full bg-gray-500 group-hover:bg-gold-accent transition-colors"></div>
+                        <h3 class="font-serif text-2xl text-white mb-2 mt-4">The Champion's Mind</h3>
+                        <p class="text-gold-accent text-sm uppercase tracking-widest mb-6 font-bold">Advanced / Pro</p>
+                        <p class="text-gray-400 mb-6 text-sm leading-relaxed">
+                            Fine-tune your mechanics and master the mental game. Includes advanced shot-making and tournament prep.
+                        </p>
+                        <ul class="space-y-3 mb-8">
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-rocket text-gold-accent mr-3 w-4"></i> Jump Shots (The Dodson Way)</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-random text-gold-accent mr-3 w-4"></i> Kicking & Banking Systems</li>
+                            <li class="flex items-center text-gray-300 text-sm"><i class="fas fa-brain text-gold-accent mr-3 w-4"></i> Pressure Management</li>
+                        </ul>
+                        <a href="#booking" class="block text-center w-full py-3 border border-gray-600 text-gray-300 hover:border-gold-accent hover:text-gold-accent transition-colors uppercase text-xs tracking-widest font-bold">Book Advanced</a>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Calendly / Booking Section -->
+        <section id="booking" class="py-24 bg-charcoal relative">
+            <div class="max-w-4xl mx-auto px-4 relative z-10">
+                <div class="glass-panel p-8 md:p-12 rounded-sm shadow-2xl text-center border-t-4 border-gold-accent">
+                    <h2 class="font-cinzel text-3xl md:text-4xl text-white mb-4">Book Your Session</h2>
+                    <p class="text-gray-400 mb-8">Select a time slot below to begin your journey. Private lessons available in-person (California) or online consultation.</p>
+                    
+                    <!-- Calendly Inline Widget Placeholder -->
+                    <div class="bg-white rounded-sm h-[600px] w-full flex items-center justify-center relative overflow-hidden shadow-inner">
+                        <!-- Instructions for the user -->
+                        <div class="text-center p-8">
+                            <div class="mb-4">
+                                <i class="far fa-calendar-alt text-4xl text-gray-400"></i>
+                            </div>
+                            <h3 class="text-gray-800 font-bold text-xl mb-2">Calendly Integration</h3>
+                            <p class="text-gray-500 max-w-sm mx-auto text-sm">
+                                This area is reserved for your Calendly embed code. 
+                                <br><br>
+                                <span class="bg-gray-100 p-2 rounded border text-xs font-mono text-gray-600">
+                                    &lt;!-- Calendly inline widget begin --&gt;<br>
+                                    ...<br>
+                                    &lt;!-- Calendly inline widget end --&gt;
+                                </span>
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="mt-8 flex flex-col md:flex-row justify-center items-center gap-6 text-sm text-gray-500">
+                        <span class="flex items-center"><i class="fas fa-map-marker-alt mr-2 text-gold-accent"></i> Westminster / Orange County, CA</span>
+                        <span class="flex items-center"><i class="fas fa-video mr-2 text-gold-accent"></i> Video Analysis Available</span>
+                        <span class="flex items-center"><i class="fas fa-envelope mr-2 text-gold-accent"></i> lessons@robindodson.com</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Footer -->
+        <footer class="bg-black py-12 border-t border-gray-800 relative overflow-hidden">
+             <div class="absolute bottom-0 right-0 opacity-5 pointer-events-none transform translate-y-1/2 translate-x-1/4">
+                 <i class="fas fa-crown text-9xl text-white"></i>
+             </div>
+            <div class="max-w-7xl mx-auto px-4 flex flex-col md:flex-row justify-between items-center relative z-10">
+                <div class="mb-6 md:mb-0 text-center md:text-left">
+                    <h4 class="font-cinzel text-xl text-white font-bold tracking-widest">ROBIN DODSON</h4>
+                    <p class="text-gray-600 text-xs mt-1">© 2024 All Rights Reserved.</p>
+                </div>
+                
+                <div class="flex space-x-6">
+                    <a href="#" class="text-gray-500 hover:text-gold-accent transition-colors"><i class="fab fa-facebook-f text-lg"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-gold-accent transition-colors"><i class="fab fa-instagram text-lg"></i></a>
+                    <a href="#" class="text-gray-500 hover:text-gold-accent transition-colors"><i class="fab fa-youtube text-lg"></i></a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+
+    <!-- Script to handle smooth scroll for anchor links even with overflow-y: auto on wrapper -->
+    <script>
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                const wrapper = document.querySelector('.parallax-wrapper');
+                
+                if (targetElement && wrapper) {
+                    wrapper.scrollTo({
+                        top: targetElement.offsetTop,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>
